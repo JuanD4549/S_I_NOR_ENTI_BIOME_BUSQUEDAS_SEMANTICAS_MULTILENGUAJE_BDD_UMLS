@@ -38,3 +38,6 @@ pip-delete-this-directory.txt
 
 #Json file
 *.json
+ingles.txt
+output.txt
+objects.txt
