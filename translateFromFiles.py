@@ -1,15 +1,10 @@
 from libretranslatepy import LibreTranslateAPI
 
-
-
-
-
 if __name__ == '__main__':
     lt = LibreTranslateAPI("https://translate.argosopentech.com/")
     fileES = open('spanish.txt', 'r', encoding='utf-8')
     fileEN = open('ingles.txt', 'w', encoding='utf-8')
-    
-    
+
     Lines = fileES.readlines()
     
     count = 0
