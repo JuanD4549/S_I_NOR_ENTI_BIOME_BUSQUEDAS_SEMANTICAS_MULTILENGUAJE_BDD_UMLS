@@ -38,8 +38,10 @@ pip-delete-this-directory.txt
 
 #Json file
 *.json
+#Archivos
 ingles.txt
 output.txt
 objects.txt
+#Carpetas
 awesome-align/
 myvenv/

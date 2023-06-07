@@ -10,13 +10,16 @@ if __name__ == '__main__':
     count = 0
     # Strips the newline character
     for line in Lines:
-        lineText = line.split("|||")
+        
         count += 1
-        print("Line{}: {}".format(count, lineText[1].strip()))
-        lineEN = lt.translate(lineText[1], "es", "en")
+        #print("Line{}: {}".format(count, lineText[1].strip()))
+        #print("Line{}: {}".format(count))
+        #lineEN = lt.translate(lineText[1], "es", "en")
+        lineEN = lt.translate(line,"es", "en")
         print("Line{}: {}".format(count, lineEN.strip()))
-        fileEN.write(lineText[0]+"|||"+lineEN)
-        #
+        #fileEN.write(lineText[0]+"|||"+lineEN)}
+        fileEN.write(lineEN)
+
     fileES.close()
     fileEN.close()
     
