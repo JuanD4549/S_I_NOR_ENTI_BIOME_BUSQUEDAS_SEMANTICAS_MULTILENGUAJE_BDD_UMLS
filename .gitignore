@@ -39,9 +39,8 @@ pip-delete-this-directory.txt
 #Json file
 *.json
 #Archivos
-spanish.txt
-ingles.txt
-output.txt
-objects.txt
+*.txt
 #Carpetas
 myvenv/
+similarity/awesome-align
+metamap-web-master/

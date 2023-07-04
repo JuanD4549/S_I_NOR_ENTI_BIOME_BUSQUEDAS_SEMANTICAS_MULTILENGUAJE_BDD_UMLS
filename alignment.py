@@ -3,12 +3,11 @@ import re
 import pandas as pd
 import consumingNER
 #import googleNLP
-from itertools import zip_longest, count 
+from itertools import zip_longest, count
 def get_word(string, pos):
     for i, m in enumerate(re.finditer('[A-Za-z0-9\-\,#\$\á\é\í\ó\ú\"\'@%&\(\)\:\/]+', string)):
         if m.end()>=pos:
             return i
-            
 def getSpanishAlignment(line):
     #line = line.strip().split("\t")
     #line[1] = line[1].split()
@@ -59,7 +58,7 @@ def getEntitiesAllClef(labeler):
     fileObjects = open('objects.txt', 'w', encoding='utf-8')
     count = 0
     candidates=[]
-    with open('spanish.txt', 'r', encoding='utf-8') as f1, open('ingles.txt', 'r', encoding='utf-8') as f2: 
+    with open('spanish.txt', 'r', encoding='utf-8') as f1, open('ingles.txt', 'r', encoding='utf-8') as f2:
         z = list(zip_longest(f1,f2))
         for line1,line2 in z:
             spanish = line1.split("|||")
@@ -105,7 +104,7 @@ def getEntitiesAllClefSpanish(labeler):
     fileObjects = open('objects.txt', 'w', encoding='utf-8')
     count = 0
     candidates=[]
-    with open('spanish.txt', 'r', encoding='utf-8') as f1, open('ingles.txt', 'r', encoding='utf-8') as f2: 
+    with open('spanish.txt', 'r', encoding='utf-8') as f1, open('ingles.txt', 'r', encoding='utf-8') as f2:
         z = list(zip_longest(f1,f2))
         for line1,line2 in z:
             spanish = line1.split("|||")

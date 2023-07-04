@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  similarity:
+    build:
+      context: similarity
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./similarity:/app
+
+
+
