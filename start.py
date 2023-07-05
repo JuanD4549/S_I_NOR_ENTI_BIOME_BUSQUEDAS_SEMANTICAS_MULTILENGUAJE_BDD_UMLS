@@ -22,7 +22,7 @@ print("si esta el documento traducido")
 ################################################################
 #--------------------Inicia de awesomeAlignment----------------#
 os.system('docker compose up')
-if os.stat('.\output.txt').st_size == 0:
+if os.stat('.\similarity\awesome-align\out\output.txt').st_size == 0:
     print("NO esta el documento outout")
     exit()
 print("si esta el documento outout")

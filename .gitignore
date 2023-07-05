@@ -44,3 +44,4 @@ pip-delete-this-directory.txt
 myvenv/
 similarity/awesome-align
 metamap-web-master/
+vec/venv
