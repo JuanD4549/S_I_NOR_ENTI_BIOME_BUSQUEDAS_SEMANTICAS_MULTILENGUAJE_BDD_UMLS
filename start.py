@@ -1,11 +1,9 @@
-import docker
 import os
 from pathlib import Path
 from subprocess import call
 ################################################################
 #------------Inicia el contenedor de docker METAMAP------------#
-client = docker.from_env()
-contenedor=client.containers.run("metamap", auto_remove=True, detach=True, ports={"80/tcp":80})
+os.system("docker start metamap")
 ################################################################
 #--------------------Ingreso de la consulta--------------------#
 with open("spanish.txt","w", encoding='utf-8') as txtSpanish:

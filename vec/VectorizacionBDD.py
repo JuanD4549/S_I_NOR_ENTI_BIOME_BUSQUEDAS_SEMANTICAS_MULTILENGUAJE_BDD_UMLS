@@ -1,3 +1,4 @@
+#T047
 import numpy as np
 import pandas as pd
 from sentence_transformers import SentenceTransformer
@@ -14,25 +15,29 @@ try:
     print("Conexión exitosa")
     cursor = conn.cursor()
     # Obtener los datos de la columna de la tabla en un DataFrame de pandas
-    query = "SELECT str FROM umls.mrconso LIMIT 5"
-    df = pd.read_sql_query(query, conn)
-    print(df)
+    queryCUI = "SELECT cui FROM umls.mrsty WHERE tui='T047' AND vectstatus= false LIMIT 1"
+    cuiAll = pd.read_sql_query(queryCUI, conn)
+    #print(cui['cui'])
     # Inicializar el modelo Sentence-BERT
     model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
+    for cui in cuiAll['cui']:
+        print("se vectoriza el cui: " + cui)
+        query = "SELECT str FROM umls.mrconso WHERE cui= %(cui)s AND (lat='ENG' OR lat='SPA') AND vectstatus= false"
+        df = pd.read_sql_query(query,conn,params={"cui":cui})
+        #print(df)
+        # Vectorizar la columna de texto
+        df['vector'] = df['str'].apply(lambda x: model.encode([x])[0])
 
-    # Vectorizar la columna de texto
-    df['vector'] = df['str'].apply(lambda x: model.encode([x])[0])
+        # Crear una columna temporal para almacenar los vectores como texto
+        df['embedding'] = df['vector'].apply(lambda x: np.array2string(x, separator=',', formatter={'float_kind': '{:f}'.format}))
 
-    # Crear una columna temporal para almacenar los vectores como texto
-    df['embedding'] = df['vector'].apply(lambda x: np.array2string(x, separator=',', formatter={'float_kind': '{:f}'.format}))
-
-    # Actualizar la tabla en la base de datos con los vectores
-    for index, row in df.iterrows():
-        vector_text = row['embedding']
-        reference_value = row['str']
-        update_query = "UPDATE umls.mrconso SET embedding = %s WHERE str= %s"
-        cursor.execute(update_query, (vector_text, reference_value))
-        print("se actualizo")
+        # Actualizar la tabla en la base de datos con los vectores
+        for index, row in df.iterrows():
+            vector_text = row['embedding']
+            reference_value = row['str']
+            update_query = "UPDATE umls.mrconso SET embedding = %s, vectstatus= TRUE WHERE str= %s"
+            cursor.execute(update_query, (vector_text, reference_value))
+            print("se actualizo: " + reference_value)
 except Exception as ex:
     print(ex)
 finally:
