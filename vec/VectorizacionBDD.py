@@ -38,6 +38,9 @@ try:
             update_query = "UPDATE umls.mrconso SET embedding = %s, vectstatus= TRUE WHERE str= %s"
             cursor.execute(update_query, (vector_text, reference_value))
             print("se actualizo: " + reference_value)
+        update_query = "UPDATE umls.mrsty SET vectstatus= TRUE WHERE tui ='T047' AND cui= %s"
+        cursor.execute(update_query, (cuiAll['cui']))
+        print("se actualizo: " + cuiAll['cui'])
 except Exception as ex:
     print(ex)
 finally:
