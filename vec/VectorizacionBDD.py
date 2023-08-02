@@ -17,7 +17,8 @@ try:
     # Obtener los datos de la columna de la tabla en un DataFrame de pandas
     queryCUI = "SELECT cui FROM umls.mrsty WHERE tui='T047' AND vectstatus= false LIMIT 1"
     cuiAll = pd.read_sql_query(queryCUI, conn)
-    #print(cui['cui'])
+
+    print(cuiAll['cui'])
     # Inicializar el modelo Sentence-BERT
     model = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
     for cui in cuiAll['cui']:
@@ -37,10 +38,10 @@ try:
             reference_value = row['str']
             update_query = "UPDATE umls.mrconso SET embedding = %s, vectstatus= TRUE WHERE str= %s"
             cursor.execute(update_query, (vector_text, reference_value))
-            print("se actualizo: " + reference_value)
+            print("se actualizo el cui: " + reference_value)
         update_query = "UPDATE umls.mrsty SET vectstatus= TRUE WHERE tui ='T047' AND cui= %s"
-        cursor.execute(update_query, (cuiAll['cui']))
-        print("se actualizo: " + cuiAll['cui'])
+        cursor.execute(update_query, (cui))
+        print("se actualizo la tabla mrsty: " + cui)
 except Exception as ex:
     print(ex)
 finally:

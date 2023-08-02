@@ -51,7 +51,7 @@ def candidates(linea):
    PARAMS = {'data':linea}
    r=requests.post('http://localhost:80/metamap', data=PARAMS)
    #tree = ElementTree.fromstring(r.content)
-   data = r.content.decode("utf-8") 
+   data = r.content.decode("utf-8")
    dict = []
    if data is not None and data != "":
         string = re.sub("<\?xml.*\?>", "", data)

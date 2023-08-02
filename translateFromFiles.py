@@ -1,23 +1,25 @@
+from time import sleep
 from libretranslatepy import LibreTranslateAPI
+from tqdm import tqdm
 
-if __name__ == '__main__':
+def translate(spanishText):
     lt = LibreTranslateAPI("https://translate.argosopentech.com/")
-    fileES = open('spanish.txt', 'r', encoding='utf-8')
-    fileEN = open('ingles.txt', 'w', encoding='utf-8')
-
-    Lines = fileES.readlines()
-
-    count = 0
+    englishText=[]
+    fileEngSpn = open('similarity/awesome-align/EngSpn.txt', 'w', encoding='utf-8')
     # Strips the newline character
-    for line in Lines:
-        count += 1
-        #print("Line{}: {}".format(count, lineText[1].strip()))
-        #print("Line{}: {}".format(count))
-        #lineEN = lt.translate(lineText[1], "es", "en")
-        lineEN = lt.translate(line,"es", "en")
-        print("Line{}: {}".format(count, lineEN.strip()))
-        #fileEN.write(lineText[0]+"|||"+lineEN)}
-        fileEN.write(lineEN)
+    count=0
+    total=len(spanishText)
+    #print(total)
+    with tqdm(100) as pbar:
+        for line in spanishText:
+            #print("Line{}: {}".format(count, lineText[1].strip()))
+            #print("Line{}: {}".format(count))
+            #lineEN = lt.translate(lineText[1], "es", "en")
+            englishText.append(lt.translate(line,"es", "en"))
+            fileEngSpn.write(line+" ||| "+englishText[count]+"\n" )
+            count+=1
+            pbar.update((count*100)/total)
+    fileEngSpn.close()
+    print(englishText)
+    return englishText
 
-    fileES.close()
-    fileEN.close()

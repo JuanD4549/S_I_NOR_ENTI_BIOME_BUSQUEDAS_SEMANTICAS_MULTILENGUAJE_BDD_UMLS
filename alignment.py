@@ -22,29 +22,22 @@ def getSpanishAlignment(line):
 def getProjection(cadenaEN, cadenaES, alineamiento, iniEnt, finEnt):
     nlp = spacy.load("en_core_web_sm")
     nlpES = spacy.load("es_core_news_sm")
-    
     docCadenaEN = nlp(cadenaEN)
     docCadenaES=nlpES(cadenaES)
     dicCadenaES=dict(zip(range(len(docCadenaES)), docCadenaES))
-    
     dicCadenaEN=dict(zip(range(len(docCadenaEN)), docCadenaEN))
-    
-    
     df = getSpanishAlignment(alineamiento)
     #print(df)
     #cadenaObjetivo=cadena[7:15]
     cadenaObjetivo=cadenaEN[iniEnt:finEnt]
     docCadenaObjetivo = nlp(cadenaObjetivo)
     locationCadena=get_word(cadenaEN, iniEnt)
-    
     dicCadenaObjetivo={k: v for k,v in list(enumerate(docCadenaObjetivo,locationCadena))}
     #print("cadenaObjetivo", cadenaObjetivo)
     #print("cadenaObjetivoDic", dicCadenaObjetivo)
     dfResultantes = pd.DataFrame(columns=['spa', 'eng'])
     for key, value in dicCadenaObjetivo.items():
-        
         dfResultantes = pd.concat([dfResultantes, df.query("eng == @key",inplace=False)], axis=0)
-        
     cadena=[]
     dfResultantes.sort_values(by=['spa'], inplace=True)
     print(dfResultantes)
@@ -98,66 +91,57 @@ def getEntitiesAllClef(labeler):
             count =count+1
             print("line: "+ str(count))
     fileObjects.close()
-def getEntitiesAllClefSpanish(labeler):
+def getEntitiesAllClefSpanish(englishText,spanishText):
     nlpEN = spacy.load("en_core_web_sm")
     nlpES = spacy.load("es_core_news_sm")
-    fileObjects = open('objects.txt', 'w', encoding='utf-8')
+    fileObjects = open('similarity/objects.txt', 'w', encoding='utf-8')
     count = 0
+    objects = []
     candidates=[]
-    with open('spanish.txt', 'r', encoding='utf-8') as f1, open('ingles.txt', 'r', encoding='utf-8') as f2:
-        z = list(zip_longest(f1,f2))
-        for line1,line2 in z:
-            spanish = line1.split("|||")
-            english = line2.split("|||")
-            docCadenaEN = nlpEN(english[1])
-            docCadenaES = nlpES(spanish[1])
-            line1= ' '.join([token.text_with_ws for token in docCadenaES])
-            line1 = re.sub("  ", " ", line1)
-            line2= ' '.join([token.text_with_ws for token in docCadenaEN])
-            line2 = re.sub("  ", " ", line2)
-            candidate=[]
-            alignment = getAlignment(count)
-            #if labeler == "google":
-            #    candidate= googleNLP.googlenlp(line2)
-            if labeler=="metamap":
-                candidate = consumingNER.candidates(line2)
-            for data in candidate:
-                #print(data['phrase'])
-                alineado = getProjection(line2, line1, alignment, data['start'], data['finish'])
-                #alineado = "  "
-                #alineado = getProjection("- reduction in the production of hematites ( aplastic anaemia )", "- reducción de la producción de hematíes ( anemia aplásica )", "0-0 3-3 5-5 6-6 10-10 9-8 4-4 7-7 8-9 2-2 1-1", 43, 61)
-                #fileObjects.write(spanish[0]+"|||"+data['cui']+"|||"+data['phrase']+"|||"+alineado+"|||"+str(data['start'])+"|||"+str(data['finish'])+"|||"+line2+"|||"+line1+alignment )
-                pattern = '\s*[\,\.\-\)\()]*$|^\s*[\,\.\)\-\()]'
-                phrase = re.sub(pattern, '', data['phrase'])
-                alineado = re.sub(pattern, '', alineado)
-                score =0
-                
-                if phrase is None or phrase =="":
-                    phrase = " ";
-                if (len(data['cui'])==0 or isinstance(data['cui'], str)):
-                    
-                    fileObjects.write(spanish[0]+"~"+data['cui']+"~"+phrase+"~"+alineado+"~"+str(data['start'])+"~"+str(data['finish'])+"~"+str(data['score'])+"\n" )
-                #elif (len(data['cui'])==1):
-                #    fileObjects.write(spanish[0]+"|||"+data['cui'][0]+"|||"+phrase+"|||"+"sin alingnment"+"|||"+str(data['start'])+"|||"+str(data['finish'])+"\n" )
-                else:
-                    for cui in data['cui']:
-                        cuiStrip=re.sub("UMLS/",  "",  cui)
-                        fileObjects.write(spanish[0]+"~"+cuiStrip+"~"+phrase+"~"+alineado+"~"+str(data['start'])+"~"+str(data['finish'])+"~"+str(data['score'])+"\n" )
-                #fileObjects.write(spanish[0]+"|||"+phrase+"|||"+alineado+"|||"+str(data['start'])+"|||"+str(data['finish'])+"\n" ) 
-                #print(alineado)
-            candidates.append(candidate)
-            count =count+1
-            print("line: "+ str(count))
+    z = list(zip_longest(spanishText,englishText))
+    for line1,line2 in z:
+        print("line1: "+ str(line1))
+        print("line2: "+ str(line2))
+        print("line2: "+line2 +" line1: "+ line1)
+        docCadenaEN = nlpEN(line2)
+        docCadenaES = nlpES(line1)
+        line1= ' '.join([token.text_with_ws for token in docCadenaES])
+        line1 = re.sub("  ", " ", line1)
+        line2= ' '.join([token.text_with_ws for token in docCadenaEN])
+        line2 = re.sub("  ", " ", line2)
+        candidate=[]
+        alignment = getAlignment(count)
+        candidate = consumingNER.candidates(line2)
+        for data in candidate:
+            #print(data['phrase'])
+            alineado = getProjection(line2, line1, alignment, data['start'], data['finish'])
+            #alineado = "  "
+            #alineado = getProjection("- reduction in the production of hematites ( aplastic anaemia )", "- reducción de la producción de hematíes ( anemia aplásica )", "0-0 3-3 5-5 6-6 10-10 9-8 4-4 7-7 8-9 2-2 1-1", 43, 61)
+            #fileObjects.write(spanish[0]+"|||"+data['cui']+"|||"+data['phrase']+"|||"+alineado+"|||"+str(data['start'])+"|||"+str(data['finish'])+"|||"+line2+"|||"+line1+alignment )
+            pattern = '\s*[\,\.\-\)\()]*$|^\s*[\,\.\)\-\()]'
+            phrase = re.sub(pattern, '', data['phrase'])
+            alineado = re.sub(pattern, '', alineado)
+            score =0
+            if phrase is None or phrase =="":
+                phrase = " ";
+            if (len(data['cui'])==0 or isinstance(data['cui'], str)):
+                fileObjects.write(line1+"~"+data['cui']+"~"+phrase+"~"+alineado+"~"+str(data['start'])+"~"+str(data['finish'])+"~"+str(data['score'])+"\n" )
+                objects.append([data['cui'],phrase,alineado,str(data['start']),str(data['finish']),str(data['score'])])
+            #elif (len(data['cui'])==1):
+            #    fileObjects.write(spanish[0]+"|||"+data['cui'][0]+"|||"+phrase+"|||"+"sin alingnment"+"|||"+str(data['start'])+"|||"+str(data['finish'])+"\n" )
+            else:
+                for cui in data['cui']:
+                    cuiStrip=re.sub("UMLS/",  "",  cui)
+                    fileObjects.write(line1+"~"+cuiStrip+"~"+alineado+"~"+phrase+"~"+str(data['start'])+"~"+str(data['finish'])+"~"+str(data['score'])+"\n" )
+                    objects.append([cuiStrip,alineado,phrase,str(data['start']),str(data['finish']),str(data['score'])])
+            #fileObjects.write(spanish[0]+"|||"+phrase+"|||"+alineado+"|||"+str(data['start'])+"|||"+str(data['finish'])+"\n" )
+            #print(alineado)
+        candidates.append(candidate)
+        count =count+1
+        print("line: "+ str(count))
     fileObjects.close()
+    return objects
 def getAlignment(numLine):
-    file = open('output.txt', 'r', encoding='utf-8')
+    file = open('similarity/awesome-align/output.txt', 'r', encoding='utf-8')
     content = file.readlines()
     return content[numLine]
-if __name__ == "__main__":
-   #cadena = "I have headache."
-   #cadenaES="tengo dolor de cabeza."
-   #alineamiento="1\t0-1 1-2 2-2 3-2 4-3"
-   #alignment(cadena, cadenaES,alineamiento, 0, 6)
-   #getEntitiesAllClef("google")
-   getEntitiesAllClefSpanish("metamap")
-   
