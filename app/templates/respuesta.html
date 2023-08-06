@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block respuesta%}
+<div class="container px-4 text-center">
+    <div class="row gx-5">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Consulta</h5>
+                    <p class="card-text">{{data.español}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row gx-5">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Traducción</h5>
+                    <p class="card-text">{{data.ingles}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Alineamiento</h5>
+                    <p class="card-text">{{data.objects}}/p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row gx-5">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Atómo</h5>
+                    <p class="card-text">{{data.atomos}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

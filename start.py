@@ -1,9 +1,10 @@
 import os
 from time import sleep
-import translateFromFiles
-import alignment
+import app.static.python.translateFromFiles as translateFromFiles
+import app.static.python.alignment as alignment
 import requests
-import similarity
+import app.static.python.similarity as similarity
+
 ################################################################
 #------------Inicia el contenedor de docker METAMAP------------#
 os.system("docker start practical_murdock")
@@ -31,7 +32,7 @@ r=requests.get('http://localhost:3000/awesomeAigment')
 print(r.status_code)
 ################################################################
 #--------------------Inicia de alignment-----------------------#
-print("Se esta ejecutando el alignment")
+print("Se esta ejecutando el etiquetado")
 if r.status_code!=200:
     exit()
 objects=alignment.getEntitiesAllClefSpanish(englishText,spanishText)

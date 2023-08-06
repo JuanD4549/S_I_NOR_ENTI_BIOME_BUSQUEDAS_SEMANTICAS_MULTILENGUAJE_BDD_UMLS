@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block form%}
+<div class="container">
+    <form action="" method="post">
+        <div class="mb-3">
+            <label for="inputConsulta" class="form-label">Ingrese su consulta</label>
+            <textarea class="form-control" name="inputConsulta" id="inputConsulta" aria-describedby="consulta" rows="3"
+                autofocus required value={{consulta}}></textarea>
+            <div id="consulta" class="form-text">Tres consulta maximo</div>
+            <button type="submit" class="btn btn-primary" onclick=carga()>Enviar</button>
+    </form>
+</div>
+<script>
+    function carga() {
+        <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0"
+            aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 10%"></div>
+        </div>
+    }
+</script>
+
+{% endblock %}

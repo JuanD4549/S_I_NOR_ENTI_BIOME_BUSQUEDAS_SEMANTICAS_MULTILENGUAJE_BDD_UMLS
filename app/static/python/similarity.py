@@ -80,12 +80,13 @@ def validar(objects):
             new_rowFin = {'cui':str(row[0]), 'aui':dfScores.iloc[pos]['aui'], 'alignment':str(row[1]),'text':str(row[2]), 'corrected':dfScores.iloc[pos]['textOri'], 'umls':dfScores.iloc[pos]['text'], 'id_document':str(row[3]) }
             dfRes =  pd.concat([dfRes,pd.DataFrame(new_rowFin, index=[0])],ignore_index=True)
             print(dfRes)
-            dfRes.to_csv('similarityPharmaNormEMEA.csv', encoding='utf-8', sep = '~')
+            dfRes.to_csv('./static/data/similarity.csv', encoding='utf-8', sep = ',')
             #dfRes = pd.DataFrame(columns=['cui', 'alignment','text', 'corrected', 'umls'])
         #cursor.close()
         cursorSelect.close()
         #cursorUpdate.close();
         connection.commit()
+        return dfRes
     except (Exception, psycopg2.Error) as error :
         print ("Error while connecting to PostgreSQL", error)
     finally:

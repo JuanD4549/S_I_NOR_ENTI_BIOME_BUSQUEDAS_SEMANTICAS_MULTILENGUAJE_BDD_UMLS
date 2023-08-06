@@ -5,6 +5,7 @@ services:
       - "3000:3000"
     volumes:
       - ./similarity:/app
+      - .\app\static\data:/app/awesome-align/data
     build:
       context: similarity
       dockerfile: Dockerfile

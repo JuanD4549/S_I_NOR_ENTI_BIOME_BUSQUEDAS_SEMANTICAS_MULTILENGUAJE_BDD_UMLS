@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Consulta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container-md">
+        <figure class="text-center">
+            <blockquote class="blockquote">
+                <p>Sistema de normalizacion de entidades biomedicas por medio de la busqueda semantica.</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                Juan Bahamonde <cite title="Source Title">William Monge</cite>
+            </figcaption>
+        </figure>
+    </div>
+    {% block form%}
+    <!-- Bloque del formulario -->
+    {% endblock %}
+    {% block respuesta%}
+    <!-- Bloque del formulario -->
+    {% endblock %}
+    {% block error%}
+    <!-- Bloque del formulario -->
+    {% endblock %}
+
+
+</body>
+
+</html>

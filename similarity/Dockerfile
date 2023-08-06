@@ -9,4 +9,4 @@ RUN cd awesome-align && \
 	pip install Flask && \
     python setup.py install
 
-CMD ["python", "awsAig.py"]
+CMD ["python", "app.py"]
