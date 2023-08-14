@@ -23,7 +23,32 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Alineamiento</h5>
+                    <h5 class="card-title">Etiquetado</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">CUI</th>
+                                <th scope="col">Etiquetado</th>
+                                <th scope="col">Frase</th>
+                                <th scope="col">Inicio</th>
+                                <th scope="col">Final</th>
+                                <th scope="col">Puntaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% cont=0 %}
+                            {% for fila in data.objects %}
+                            <tr>
+                                <th scope="row">{{cont}}</th>
+                                {% for iteam in fila %}
+                                <td>{{iteam}}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
                     <p class="card-text">{{data.objects}}/p>
                 </div>
             </div>

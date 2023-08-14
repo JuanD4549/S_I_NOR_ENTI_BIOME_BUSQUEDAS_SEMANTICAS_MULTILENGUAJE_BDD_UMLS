@@ -1,4 +1,9 @@
 ,cui,aui,alignment,text,corrected,umls,id_document
-0,C0030705,A15503046,the patient,El paciente,the,TIMOLOL MALEATE,0
-1,C0010957,A11567337,damaged,dañada,damaged,timolol maleate,16
-2,C0027061,A23920944,the structure of myocardial,la estructura del miocardio,of,TIMOLOL MALEATE,24
+0,C0013658,A16477054,educational material to all physicians,material educativo a todos médicos,to,toviaz,19
+1,C0520510,A16477054,educational material to all physicians,material educativo a todos médicos,to,toviaz,19
+2,C0031831,A16477054,educational material to all physicians,material educativo a todos médicos,to,toviaz,19
+3,C0039401,A16477054,educational material to all physicians,material educativo a todos médicos,to,toviaz,19
+4,C0522476,A17022313,involved in treating prasugrel patients,implicados en tratamiento pacientes prasugrel prasugrel,prasugrel,prasugrel,69
+5,C0087111,A17022313,involved in treating prasugrel patients,implicados en tratamiento pacientes prasugrel prasugrel,prasugrel,prasugrel,69
+6,C1620287,A17022313,involved in treating prasugrel patients,implicados en tratamiento pacientes prasugrel prasugrel,prasugrel,prasugrel,69
+7,C1292734,A17022313,involved in treating prasugrel patients,implicados en tratamiento pacientes prasugrel prasugrel,prasugrel,prasugrel,69

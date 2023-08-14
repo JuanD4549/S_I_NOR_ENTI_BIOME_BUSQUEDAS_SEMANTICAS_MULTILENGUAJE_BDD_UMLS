@@ -3,6 +3,10 @@
 /*ALTER TABLE umls.mrconso ADD COLUMN embedding vector(3)*/
 SELECT * FROM umls.mrconso WHERE str='1,2-dipalmitoylphosphatidylcholine'
 SELECT * FROM umls.mrsty WHERE tui='T047'
+CREATE INDEX upvect ON umls.mrconso("str","aui")
+CREATE INDEX cuituisty ON umls.mrsty("cui","tui")
+CREATE INDEX cuilatconso ON umls.mrconso("cui","lat")
+CREATE INDEX ON umls.mrconso("embedding")
 -- FUNCTION: public.get_ngrams(text)
 
 -- DROP FUNCTION IF EXISTS public.get_ngrams(text);

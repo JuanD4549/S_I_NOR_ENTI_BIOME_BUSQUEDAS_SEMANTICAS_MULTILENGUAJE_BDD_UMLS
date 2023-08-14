@@ -1,9 +1,9 @@
 import os
 from time import sleep
-import app.static.python.translateFromFiles as translateFromFiles
-import app.static.python.alignment as alignment
+import app.static.python.traductor as traductor
+import app.static.python.etiquetado as etiquetado
 import requests
-import app.static.python.similarity as similarity
+import app.static.python.similitud as similitud
 
 ################################################################
 #------------Inicia el contenedor de docker METAMAP------------#
@@ -24,7 +24,7 @@ while True:
 ################################################################
 #--------------Inicia el proceso de Traducción-----------------#
 print("Se esta traduciendo al ingles")
-englishText=translateFromFiles.translate(spanishText)
+englishText=traductor.translate(spanishText)
 ################################################################
 #--------------------Inicia de awesomeAlignment----------------#
 print("Se esta ejecutando el awesomeAlignment")
@@ -35,8 +35,8 @@ print(r.status_code)
 print("Se esta ejecutando el etiquetado")
 if r.status_code!=200:
     exit()
-objects=alignment.getEntitiesAllClefSpanish(englishText,spanishText)
+objects=etiquetado.getEntitiesAllClefSpanish(englishText,spanishText)
 ################################################################
 #--------------------Inicia de la busquedea del atomo-----------------------#
 print("Inicia la busqueda del atomo")
-similarity.validar(objects)
+similitud.validar(objects)

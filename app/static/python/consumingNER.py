@@ -2,14 +2,13 @@ import requests
 import xml.etree.ElementTree as ET
 import re
 
-def getResults(xml): 
-    root = ET.fromstring(xml)    
+def getResults(xml):
+    root = ET.fromstring(xml)
     results = []
     for phrase in root.findall('.//Phrase'):
         start=phrase.find('./PhraseStartPos').text
         lenght=phrase.find('./PhraseLength').text
         for candidate in phrase.findall('./Mappings/Mapping/MappingCandidates/Candidate'):
-            
             score=candidate.find('./CandidateScore').text
             cui = candidate.find('./CandidateCUI').text
             label = candidate.find('./CandidatePreferred').text

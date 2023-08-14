@@ -27,7 +27,7 @@ try:
     for index, row in cuiAll.iterrows():
         print("se actualizara el cui: " + row['cui'] + " / " + row['str'])
         # Actualizar la tabla en la base de datos con los vectores
-        update_query = "UPDATE umls.mrconso SET embedding = %s, vectstatus= TRUE WHERE str= %s AND aui=%s AND vectstatus= FALSE"
+        update_query = "UPDATE umls.mrconso SET embedding = %s WHERE str= %s AND aui=%s"
         cursor.execute(update_query, (row['embedding'], row['str'],row['aui']))
         print("se actualizo el cui: " + row['cui'] + " / " + row['str'])
 except Exception as ex:

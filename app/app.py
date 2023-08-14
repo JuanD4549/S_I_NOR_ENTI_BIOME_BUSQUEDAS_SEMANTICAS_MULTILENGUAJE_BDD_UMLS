@@ -1,6 +1,6 @@
-from static.python.translateFromFiles import translate
-from static.python.alignment import getEntitiesAllClefSpanish
-from static.python.similarity import validar
+from static.python.traductor import translate
+from static.python.etiquetado import getEntitiesAllClefSpanish
+from static.python.similitud import validar
 from flask import Flask,render_template,request
 import re
 import requests
