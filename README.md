@@ -9,8 +9,9 @@
 3. Instalar las librerias necesarias, dirigir la ruta la carpea **app** y ejecutar el siguiente comando
     `pip install -r requirements.txt`
 ### Instalar el contenedor AwesomeAigment
-    Ejecutar el siguiete comando desde la raiz principal del proyecto
+Ejecutar el siguiete comando desde la raiz principal del proyecto
 `docker compose -p awesomeaigment up`
 ## Ejecutar el proyecto
-1. Establecer la raiz del pryecto en la carpeta **app** y ejecutar el siguiente comando
+1. Establecer la raiz del pryecto en la carpeta **app**
+2. Ejecutar el siguiente comando
     `python app.py`
